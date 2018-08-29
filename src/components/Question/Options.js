@@ -76,7 +76,7 @@ class Question extends Component {
               </FormGroup>
             </FormGroup>
             <User  {...info} />
-            <Button onClick={this.handleVote} name="optionOne">Vote</Button>
+            <Button disabled={this.state.vote === null} onClick={this.handleVote} name="optionOne">Vote</Button>
           </CardBody>
         </Card>
       </div>
