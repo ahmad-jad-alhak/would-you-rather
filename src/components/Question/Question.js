@@ -15,7 +15,7 @@ class Question extends Component {
   }
 
   onChange = e => {
-    this.setState({ vote: e.target.name })
+    this.setState({ vote: e.target.name });
   }
 
   handleVote = (e) => {
@@ -26,7 +26,7 @@ class Question extends Component {
     dispatch(handleAnswer(info));
     setTimeout(() => this.setState({
       showDetails: true
-    }), 500);
+    }), 300);
   }
 
   render() {
@@ -52,10 +52,10 @@ class Question extends Component {
             </CardText>
             <User  {...info} />
             {this.props.hasVoted === "hasVoted" ?
-              <Link to={{ pathname: `question/${id}/details`, query: "hello" }}>
-                <Button>Show Details</Button>
+              <Link to={ `/questions/${id}/details`}>
+                <Button>Details</Button>
               </Link> 
-              : <Link to={{ pathname: `question/${id}`, query: "hello" }}>
+              : <Link to={`/questions/${id}`}>
                   <Button>Vote</Button>
                 </Link>}
           </CardBody>

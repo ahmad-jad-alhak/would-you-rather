@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Options from './Options'
-
+import { Redirect } from 'react-router-dom'
 
 
 class QuestionPage extends Component {
@@ -14,11 +14,10 @@ class QuestionPage extends Component {
   }
 
   render() {
-    const { question} = this.props
+    const { question } = this.props
 
-
-    if (question === null) {
-      return <p>This Tweet doesn't exist.</p>
+    if (question === null ) {
+      return <Redirect to="/404" />
     }
 
     return (
@@ -30,9 +29,9 @@ class QuestionPage extends Component {
 }
 
 function mapStateToProps({ questions }, { match }) {
-  const question = questions[match.params.id]
+  const question = questions[match.params.question_id]
   return {
-    question,
+    question: question ? question : null
   }
 }
 

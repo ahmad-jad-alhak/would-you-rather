@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { handleSetAuthUser } from '../actions/authedUser'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 class Login extends Component {

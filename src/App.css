@@ -3,6 +3,7 @@
 .App {
   width: 90%;
   margin: auto;
+  max-width: 1024px;
 
 }
 
@@ -88,11 +89,6 @@ body {
   padding: 8px 16px 7px;
 }
 
-.nav li:last-child a:hover {
-  background: rgba(255,255,255,0.5);
-  color: #fff;
-}
-
 @media all and (min-width: 1030px) {
   .header {
     min-width: 768px;
@@ -139,6 +135,20 @@ body {
   border: 0;
 }
 
+.notFound  {
+  padding: 12px;
+  width: 420px;
+  border: none;
+  margin:auto;
+  margin-top: 30px;
+  text-align: center
+}
+
+.notFound button {
+  background: #5fcf80;
+  border: none;
+ 
+}
 
 
 .container-page {

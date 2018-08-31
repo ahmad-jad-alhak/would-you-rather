@@ -157,7 +157,6 @@ let users = {
           ...questions,
           [formattedQuestion.id]: formattedQuestion
         }
-        
         users = {
           ...users,
           [authedUser]: {

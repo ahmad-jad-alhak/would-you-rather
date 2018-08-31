@@ -1,14 +1,9 @@
 import * as React from 'react';
 import {
-  IPersonaProps,
-  IPersonaSharedProps,
   Persona,
   PersonaSize,
-  PersonaPresence
 } from 'office-ui-fabric-react/lib/Persona';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-
-
 
 export class User extends React.Component {
   render() {

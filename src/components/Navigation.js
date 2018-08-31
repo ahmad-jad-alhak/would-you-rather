@@ -4,7 +4,7 @@ import {  NavLink } from 'react-router-dom'
 import User from './Persona'
 import { connect } from 'react-redux'
 import { logOut } from '../actions/authedUser'
-import { Redirect } from 'react-router-dom'
+
 class Header extends Component {
 
     state = {
@@ -14,10 +14,8 @@ class Header extends Component {
     handlelogOut = () => {
         const { dispatch } = this.props
         dispatch(logOut())
-        if (this.state.logedIn === false ) {
-            return  <Redirect to="/" />
-         }
     }
+
     render() {
  
         return (
@@ -30,8 +28,7 @@ class Header extends Component {
                     <li>< NavLink exact to="/add" >New Question</NavLink></li>
                     <li>< NavLink exact to="/leaderboard" >Leader Board</NavLink></li>
                 </Fragment> : ''}
-
-                    <li onClick={this.handlelogOut}>< NavLink exact to="/" >{this.props.currUser !== null ? "Log Out" : "Log In" }</NavLink></li>
+                    <li onClick={this.handlelogOut}><a herf="#" style={{color: '#fff'}}>{this.props.currUser !== null ? "Log Out" : "Log In" }</a></li>
                 </ul>
             </header>
         );

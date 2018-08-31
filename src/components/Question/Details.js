@@ -4,16 +4,23 @@ import {
     CardTitle, Progress, Alert
 } from 'reactstrap';
 import User from '../Persona'
-import {  connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Details = (props) => {
-    const { question, authedUser, usersNum, user } = props
+const  Details = (props) => {
 
-    if (props.authedUser === null ) {
-        return <Redirect to="/" />
-    } 
-
+    if (props.question === null) {
+        return <Redirect to="/NotFound" />
+    }
+    
+    const { question, authedUser, usersNum, users } = props
+    const voters = question.optionOne.votes.length + question.optionTwo.votes.length;
+    const countOptionOneVoters = question.optionOne.votes.length
+    const countOptionTwoVoters = question.optionTwo.votes.length
+    const optionOnePercent = parseInt(100 * (countOptionOneVoters / voters), 10);
+    const optionTwoPercent = parseInt(100 * (countOptionTwoVoters / voters), 10);
+    const user = users[question.author]
+    
     return (
         <div className='card-style'>
             <Card>
@@ -22,8 +29,18 @@ const Details = (props) => {
                         <User avatarURL={user.avatarURL} name={user.name} />
                     </div>
                     <div style={{ width: '60%', display: 'inline-block' }}>
-                        <QuestionCard users={usersNum} q={question.optionOne} authedUser={authedUser} />
-                        <QuestionCard users={usersNum} q={question.optionTwo} authedUser={authedUser} />
+                        <QuestionCard 
+                            zahl={optionOnePercent} 
+                            users={usersNum} 
+                            q={question.optionOne}  
+                            votes={countOptionOneVoters} 
+                            authedUser={authedUser} />
+                        <QuestionCard 
+                            zahl={optionTwoPercent} 
+                            users={usersNum} 
+                            q={question.optionTwo} 
+                            votes={countOptionTwoVoters} 
+                            authedUser={authedUser} />
                     </div>
                 </CardBody>
             </Card>
@@ -33,12 +50,14 @@ const Details = (props) => {
 
 const QuestionCard = (props) => {
     return (
+        
         <div>
             <Card body>
                 <CardTitle>{props.q.text}</CardTitle>
-                <div className="text-center">{props.q.votes.length} of {props.users}</div>
-                <Progress value={props.q.votes.length} max={props.users} />
-                <div style={{ margin: '16px'}}> {props.q.votes.includes(props.authedUser) && 
+                <div className="text-center">{props.zahl}%</div>
+                <Progress value={props.zahl} />
+                <p>{props.votes === 0 ? "No votes for this option yet" : `${props.votes} voted for this option`}</p>
+                <div style={{ margin: '16px' }}> {props.q.votes.includes(props.authedUser) &&
                     <Alert color="success">
                         You voted for this answer!
                     </Alert>}
@@ -49,18 +68,14 @@ const QuestionCard = (props) => {
 };
 
 function mapStatToProps({ users, authedUser, questions }, { match }) {
-    const question = questions[match.params.id]
+    const question = questions[match.params.question_id] 
     const usersNum = Object.keys(users).length
-    const user = users[question.author]
-
     return {
         users,
         authedUser,
-        question,
+        question: question ? question : null,
         usersNum,
-        user
     }
 }
 
 export default connect(mapStatToProps)(Details);
-

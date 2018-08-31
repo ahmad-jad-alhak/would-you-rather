@@ -20,8 +20,8 @@ class Dashboard extends Component {
 
 
     render() {
-        if (this.state.logedIn === false ) {
-            return  <Redirect to="/" />
+        if (this.props.authedUser === null ) {
+            return  <Redirect to="/login" />
          }
 
         return (
@@ -45,7 +45,6 @@ class Dashboard extends Component {
                         }
                         </div>
                     )}
-
             </div>
         )
 
@@ -64,7 +63,8 @@ function mapStateToProps({ questions, authedUser }) {
         unAnsweredQuestionIds: Object.values(unAnsweredQuestions)
             .sort((a, b) => b.timestamp - a.timestamp).map((q) => q.id),
         answeredQuestionIds: Object.values(answeredQuestions)
-            .sort((a, b) => b.timestamp - a.timestamp).map((q) => q.id)
+            .sort((a, b) => b.timestamp - a.timestamp).map((q) => q.id),
+            authedUser,
     }
 }
 

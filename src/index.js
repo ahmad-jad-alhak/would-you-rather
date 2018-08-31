@@ -8,7 +8,9 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import  middleware from './middleware'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { applyMiddleware } from 'redux'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 const store = createStore(reducer,  composeWithDevTools(middleware ))
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

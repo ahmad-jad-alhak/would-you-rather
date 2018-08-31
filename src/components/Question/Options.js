@@ -1,44 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { formatQuestion } from '../../utils/_DATA'
-import { Link } from 'react-router-dom'
 import { handleAnswer } from '../../actions/questions'
-import {
-  DocumentCard,
-  DocumentCardActivity,
-  DocumentCardPreview,
-  DocumentCardTitle,
-  IDocumentCardPreviewProps,
-  DocumentCardType
-} from 'office-ui-fabric-react/lib/DocumentCard';
 import User from '../Persona'
-import {
-  Card, Button, CardHeader, CardBody,
-
-} from 'reactstrap';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { Card, Button, CardHeader, CardBody } from 'reactstrap';
+import { FormGroup, Label } from 'reactstrap';
 import { Redirect } from 'react-router-dom'
 
 class Question extends Component {
 
   state = {
-    vote: null,
     showDetails: false
   }
 
-  onChange = e => {
-    this.setState({ vote: e.target.name })
-  }
-
   handleVote = (e) => {
-    e.preventDefault();
     const { dispatch, id } = this.props;
-    const option = this.state.vote;
+    const option = e.target.name;
     const info = { id, option };
     dispatch(handleAnswer(info));
     setTimeout(() => this.setState({
       showDetails: true
-    }), 500);
+    }), 300);
     this.props.onClick()
   }
 
@@ -52,7 +33,7 @@ class Question extends Component {
     }
 
     if (this.state.showDetails === true) {
-      return <Redirect to={`/question/${id}/details`} />;
+      return <Redirect to={`/questions/${id}/details`} />;
     }
 
     return (
@@ -64,19 +45,18 @@ class Question extends Component {
               <legend>Would you rather?</legend>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="optionOne" onClick={this.onChange} />
                   Option one: {optionOne.text}
                 </Label>
               </FormGroup>
+                <Button onClick={this.handleVote} name="optionOne" >Vote</Button>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="optionTwo" onClick={this.onChange} />
                   Option Two: {optionTwo.text}
                 </Label>
               </FormGroup>
+                <Button onClick={this.handleVote} name="optionTwo" >Vote</Button>
             </FormGroup>
             <User  {...info} />
-            <Button disabled={this.state.vote === null} onClick={this.handleVote} name="optionOne">Vote</Button>
           </CardBody>
         </Card>
       </div>

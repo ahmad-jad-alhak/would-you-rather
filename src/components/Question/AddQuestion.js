@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleAddQuestion } from '../../actions/questions';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 class NewQuestion extends Component {
@@ -37,17 +37,13 @@ class NewQuestion extends Component {
     render() {
         const { optionOneText, optionTwoText, toHome } = this.state;
 
-        if (this.props.authedUser === null) {
-            return <Redirect to='/' />
-        }
-
-        if (this.state.toHome === true) {
+        if (toHome === true) {
             return <Redirect to='/' />
         }
 
         return (
             <div className="container-page">
-                <h3>Add a new question</h3>
+                <h3>Would you rather?</h3>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="exampleText">Option One</Label>
@@ -57,7 +53,11 @@ class NewQuestion extends Component {
                         <Input type="textarea" name="optionTwoText" id="exampleText" value={optionTwoText}
                             onChange={this.handleInput} />
                     </FormGroup>
-                    <Button style={{ background: '#5fcf80', color: '#fff', width: '200px', margin: 'auto' }}>Submit</Button>
+                    <Button             
+                        disabled={optionOneText === '' || optionTwoText === ''}
+                        style={{ background: '#5fcf80', color: '#fff', width: '200px', margin: 'auto' }}>
+                        Submit
+                    </Button>
                 </Form>
             </div>
         )
