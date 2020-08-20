@@ -1,4 +1,4 @@
-This project was built for Udacity React Nanodgree.
+
 
 This Project requires Node JS to be installed.
 
